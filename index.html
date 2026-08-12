@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Geberit – מציאת חנות</title>
+  <meta name="description" content="מצא את חנות גבריט הקרובה אליך" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700&display=swap" rel="stylesheet" />
+  <style>
+    :root{--gb:#376EB4;--gb-dark:#004673;--gb-light:#84CDF0;--gb-ultra:#061C45;--white:#fff;--r-sm:8px;--r-md:14px;--r-lg:20px;--tr:all .28s cubic-bezier(.4,0,.2,1)}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'Roboto',sans-serif;direction:rtl;text-align:right;background:var(--gb-ultra);color:#fff;min-height:100vh;overflow-x:hidden}
+    .bg{position:fixed;inset:0;z-index:0;background:radial-gradient(ellipse 80% 60% at 20% 10%,rgba(55,110,180,.35) 0%,transparent 60%),radial-gradient(ellipse 60% 80% at 80% 90%,rgba(132,205,240,.18) 0%,transparent 55%),linear-gradient(160deg,#061C45 0%,#0A2E5A 50%,#004673 100%);animation:bgp 12s ease-in-out infinite alternate}
+    @keyframes bgp{0%{filter:brightness(1)}100%{filter:brightness(1.08)}}
+    .orb{position:fixed;border-radius:50%;filter:blur(80px);opacity:.15;z-index:0;animation:orf 18s ease-in-out infinite alternate;pointer-events:none}
+    .o1{width:500px;height:500px;background:var(--gb);top:-150px;left:-100px;animation-duration:20s}
+    .o2{width:350px;height:350px;background:var(--gb-light);bottom:-100px;right:-80px;animation-duration:25s;animation-delay:3s}
+    .o3{width:250px;height:250px;background:#376eb4;top:40%;left:60%;animation-duration:15s;animation-delay:7s}
+    @keyframes orf{0%{transform:translate(0,0) scale(1)}100%{transform:translate(40px,-30px) scale(1.1)}}
+    .wrap{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:0 20px 80px}
+    /* header */
+    .hdr{width:100%;max-width:820px;padding:36px 0 0;display:flex;flex-direction:column;align-items:center}
+    .logo{margin-bottom:22px}
+    .logo img{height:48px;width:auto;max-width:100%;object-fit:contain}
+    .eyebrow{font-size:.78rem;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--gb-light);margin-bottom:10px;opacity:.85}
+    h1{font-size:clamp(1.55rem,4vw,2.3rem);font-weight:700;text-align:center;line-height:1.25;margin-bottom:10px}
+    .sub{font-size:.97rem;font-weight:300;color:rgba(255,255,255,.65);text-align:center;max-width:440px;line-height:1.65}
+    .divider{width:48px;height:3px;background:var(--gb-light);border-radius:2px;margin:18px auto 26px;opacity:.7}
+    /* tabs */
+    .tabs{display:flex;gap:8px;width:100%;max-width:820px;margin-bottom:22px;background:rgba(255,255,255,.06);border-radius:var(--r-lg);padding:6px;border:1px solid rgba(255,255,255,.1)}
+    .tab{flex:1;padding:12px 10px;border:none;border-radius:var(--r-md);background:transparent;color:rgba(255,255,255,.55);font-family:'Roboto',sans-serif;font-size:.88rem;font-weight:500;cursor:pointer;transition:var(--tr);display:flex;align-items:center;justify-content:center;gap:7px;white-space:nowrap}
+    .tab svg{flex-shrink:0;opacity:.7;transition:var(--tr)}
+    .tab:hover{color:rgba(255,255,255,.85);background:rgba(255,255,255,.06)}
+    .tab.active{background:linear-gradient(135deg,var(--gb),var(--gb-dark));color:#fff;box-shadow:0 4px 18px rgba(4,70,115,.4)}
+    .tab.active svg{opacity:1}
+    /* panels */
+    .panel{width:100%;max-width:820px;display:none;flex-direction:column;gap:0}
+    .panel.active{display:flex}
+    /* card container */
+    .card{width:100%;background:rgba(255,255,255,.07);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.14);border-radius:var(--r-lg);padding:30px 28px;box-shadow:0 8px 48px rgba(0,0,0,.3);margin-bottom:22px}
+    .lbl{display:block;font-size:.82rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--gb-light);margin-bottom:12px}
+    .row{display:flex;gap:12px;align-items:stretch}
+    input[type=text]{flex:1;background:rgba(255,255,255,.10);border:1.5px solid rgba(255,255,255,.18);border-radius:var(--r-md);padding:14px 18px;font-size:1rem;font-family:'Roboto',sans-serif;color:#fff;direction:rtl;outline:none;transition:var(--tr)}
+    input[type=text]::placeholder{color:rgba(255,255,255,.38)}
+    input[type=text]:focus{border-color:var(--gb-light);background:rgba(255,255,255,.14);box-shadow:0 0 0 3px rgba(132,205,240,.18)}
+    .sbtn{flex-shrink:0;display:flex;align-items:center;justify-content:center;gap:8px;padding:14px 26px;background:linear-gradient(135deg,var(--gb),var(--gb-dark));border:none;border-radius:var(--r-md);color:#fff;font-family:'Roboto',sans-serif;font-size:.95rem;font-weight:600;cursor:pointer;transition:var(--tr);white-space:nowrap;box-shadow:0 4px 18px rgba(4,70,115,.4)}
+    .sbtn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(4,70,115,.55)}
+    .sbtn:active{transform:translateY(0)}
+    .sbtn:disabled{opacity:.7;cursor:not-allowed;transform:none}
+    .spinner{width:18px;height:18px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;display:none}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .hint{margin-top:10px;font-size:.78rem;color:rgba(255,255,255,.38);text-align:center}
+    .err{margin-top:14px;padding:12px 16px;background:rgba(220,50,50,.15);border:1px solid rgba(220,80,80,.3);border-radius:var(--r-sm);color:#ff9d9d;font-size:.88rem;display:none;text-align:center}
+    /* store result cards - UNIFORM */
+    .sc{background:rgba(255,255,255,.08);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.13);border-radius:var(--r-md);padding:18px 22px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:var(--tr);animation:csi .35s cubic-bezier(.4,0,.2,1) both;box-shadow:0 3px 16px rgba(4,26,64,.12);margin-bottom:10px}
+    @keyframes csi{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+    .sc:hover{background:rgba(255,255,255,.12);border-color:rgba(132,205,240,.3);transform:translateY(-2px);box-shadow:0 8px 30px rgba(4,26,64,.2)}
+    .store-icon{flex-shrink:0;width:38px;height:38px;border-radius:10px;background:rgba(132,205,240,.1);border:1px solid rgba(132,205,240,.18);display:flex;align-items:center;justify-content:center;color:var(--gb-light)}
+    .sinfo{flex:1;min-width:0}
+    .sname{font-size:.98rem;font-weight:600;color:#fff;margin-bottom:3px;line-height:1.3}
+    .saddr{font-size:.83rem;color:rgba(255,255,255,.52);font-weight:300}
+    .sdist{flex-shrink:0;font-size:.82rem;font-weight:600;color:var(--gb-light);background:rgba(132,205,240,.1);border:1px solid rgba(132,205,240,.2);border-radius:20px;padding:5px 13px;white-space:nowrap;min-width:70px;text-align:center}
+    .sdist.loading{opacity:.5;font-weight:400}
+    .sarr{flex-shrink:0;color:rgba(255,255,255,.28);transition:var(--tr)}
+    .sc:hover .sarr{color:var(--gb-light);transform:translateX(-3px)}
+    /* section headers */
+    .sec-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding:0 2px}
+    .sec-title{font-size:.8rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--gb-light);opacity:.85}
+    .sec-count{font-size:.8rem;color:rgba(255,255,255,.4)}
+    /* city browser */
+    .cities-grid{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+    .city-btn{padding:9px 17px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:24px;color:rgba(255,255,255,.75);font-family:'Roboto',sans-serif;font-size:.86rem;font-weight:500;cursor:pointer;transition:var(--tr);display:flex;align-items:center;gap:6px}
+    .city-btn:hover{background:rgba(132,205,240,.15);border-color:rgba(132,205,240,.35);color:#fff}
+    .city-btn.active{background:linear-gradient(135deg,var(--gb),var(--gb-dark));border-color:transparent;color:#fff;box-shadow:0 4px 14px rgba(4,70,115,.4)}
+    .city-count{font-size:.72rem;background:rgba(255,255,255,.15);border-radius:10px;padding:1px 7px;font-weight:600}
+    .city-btn.active .city-count{background:rgba(255,255,255,.25)}
+    .city-stores{display:none}
+    .city-stores.active{display:block}
+    /* all stores */
+    .all-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px}
+    .all-count{font-size:.85rem;color:rgba(255,255,255,.5)}
+    .all-search{background:rgba(255,255,255,.10);border:1.5px solid rgba(255,255,255,.18);border-radius:var(--r-md);padding:10px 16px;font-size:.9rem;font-family:'Roboto',sans-serif;color:#fff;direction:rtl;outline:none;transition:var(--tr);width:210px}
+    .all-search::placeholder{color:rgba(255,255,255,.38)}
+    .all-search:focus{border-color:var(--gb-light);background:rgba(255,255,255,.14)}
+    .group-title{font-size:.74rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gb-light);margin:20px 0 8px;padding-bottom:6px;border-bottom:1px solid rgba(132,205,240,.15);opacity:.8}
+    .group-title:first-child{margin-top:0}
+    /* city filter search */
+    .city-filter{background:rgba(255,255,255,.10);border:1.5px solid rgba(255,255,255,.18);border-radius:var(--r-md);padding:11px 16px;font-size:.92rem;font-family:'Roboto',sans-serif;color:#fff;direction:rtl;outline:none;transition:var(--tr);width:100%;margin-bottom:16px}
+    .city-filter::placeholder{color:rgba(255,255,255,.38)}
+    .city-filter:focus{border-color:var(--gb-light);background:rgba(255,255,255,.14)}
+    /* progress */
+    .geo-progress{margin-top:10px;font-size:.78rem;color:rgba(132,205,240,.7);text-align:center;display:none}
+    /* nav popup */
+    .overlay{position:fixed;inset:0;background:rgba(4,15,40,.75);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:100;display:none;align-items:flex-end;justify-content:center}
+    .overlay.on{display:flex;animation:ovi .25s ease}
+    @keyframes ovi{from{opacity:0}to{opacity:1}}
+    .popup{width:100%;max-width:560px;background:rgba(8,26,60,.97);border:1px solid rgba(132,205,240,.2);border-radius:var(--r-lg) var(--r-lg) 0 0;padding:28px 28px 40px;animation:psu .32s cubic-bezier(.4,0,.2,1);box-shadow:0 -16px 60px rgba(0,0,0,.5)}
+    @keyframes psu{from{transform:translateY(100%);opacity:.4}to{transform:translateY(0);opacity:1}}
+    .phdr{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px}
+    .pname{font-size:1.05rem;font-weight:600;color:#fff}
+    .paddr{font-size:.85rem;color:rgba(255,255,255,.5);margin-top:3px}
+    .pcls{background:rgba(255,255,255,.08);border:none;color:rgba(255,255,255,.5);cursor:pointer;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:var(--tr)}
+    .pcls:hover{background:rgba(255,255,255,.15);color:#fff}
+    .pdiv{height:1px;background:rgba(255,255,255,.1);margin:16px 0}
+    .plbl{font-size:.75rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:14px}
+    .nbtns{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .nb{display:flex;align-items:center;justify-content:center;gap:10px;padding:16px 14px;border:none;border-radius:var(--r-md);font-family:'Roboto',sans-serif;font-size:.95rem;font-weight:600;cursor:pointer;transition:var(--tr);text-decoration:none;color:#fff}
+    .nw{background:linear-gradient(135deg,#33ccff,#09c)}
+    .nw:hover{filter:brightness(1.1);transform:translateY(-2px);box-shadow:0 6px 22px rgba(0,153,204,.45)}
+    .ng{background:linear-gradient(135deg,#4285f4,#1a73e8)}
+    .ng:hover{filter:brightness(1.1);transform:translateY(-2px);box-shadow:0 6px 22px rgba(26,115,232,.45)}
+    .empty{text-align:center;padding:36px 20px;color:rgba(255,255,255,.38);font-size:.9rem}
+    .footer{margin-top:48px;font-size:.75rem;color:rgba(255,255,255,.2);text-align:center}
+    @media(max-width:600px){
+      .card{padding:20px 16px}.row{flex-direction:column}
+      .sc{padding:15px 13px;gap:11px}.popup{padding:22px 18px 32px}
+      .nbtns{grid-template-columns:1fr}h1{font-size:1.48rem}
+      .tabs{gap:4px;padding:4px}.tab{font-size:.76rem;padding:10px 5px}
+      .all-hdr{flex-direction:column;align-items:flex-start}.all-search{width:100%}
+    }
+  </style>
+</head>
+<body>
+  <div class="bg" aria-hidden="true"></div>
+  <div class="orb o1" aria-hidden="true"></div>
+  <div class="orb o2" aria-hidden="true"></div>
+  <div class="orb o3" aria-hidden="true"></div>
+  <div class="wrap">
+    <header class="hdr">
+      <div class="logo" aria-label="Geberit">
+        <img src="logo.png" alt="Geberit Logo" />
+      </div>
+      <p class="eyebrow">מציאת נקודות מכירה</p>
+      <h1>מצא את החנות הקרובה אליך</h1>
+      <p class="sub">חפש לפי כתובת מדוייקת, עיר או צפה בכל החנויות</p>
+      <div class="divider"></div>
+    </header>
+
+    <div class="tabs" role="tablist">
+      <button class="tab active" id="tab-search" role="tab" onclick="switchTab('search')" aria-selected="true">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        חפש לפי כתובת
+      </button>
+      <button class="tab" id="tab-city" role="tab" onclick="switchTab('city')" aria-selected="false">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        חפש לפי עיר
+      </button>
+      <button class="tab" id="tab-all" role="tab" onclick="switchTab('all')" aria-selected="false">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+        כל החנויות
+      </button>
+    </div>
+
+    <!-- SEARCH PANEL -->
+    <div class="panel active" id="panel-search" role="tabpanel">
+      <section class="card">
+        <label class="lbl" for="addr">כתובתך המלאה</label>
+        <div class="row">
+          <input id="addr" type="text" placeholder="לדוגמה: רחוב הרצל 45, תל אביב" autocomplete="off" />
+          <button class="sbtn" id="sbtn" type="button" onclick="find()">
+            <div class="spinner" id="sp"></div>
+            <svg id="sico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            <span id="stxt">חפש</span>
+          </button>
+        </div>
+        <p class="hint">הכנס עיר, רחוב ומספר לתוצאות מדויקות</p>
+        <div class="err" id="err" role="alert"></div>
+        <div class="geo-progress" id="geo-progress">מחשב מרחקים מדויקים...</div>
+      </section>
+      <div id="search-results" style="display:none"></div>
+    </div>
+
+    <!-- CITY PANEL -->
+    <div class="panel" id="panel-city" role="tabpanel">
+      <div class="card">
+        <label class="lbl">בחר עיר</label>
+        <input class="city-filter" id="city-filter" type="text" placeholder="סנן עיר..." oninput="buildCitiesGrid(this.value)" autocomplete="off" />
+        <div class="cities-grid" id="cities-grid"></div>
+      </div>
+      <div class="city-stores" id="city-stores">
+        <div class="sec-hdr">
+          <span class="sec-title" id="city-stores-title"></span>
+          <span class="sec-count" id="city-stores-count"></span>
+        </div>
+        <div id="city-list"></div>
+      </div>
+    </div>
+
+    <!-- ALL PANEL -->
+    <div class="panel" id="panel-all" role="tabpanel">
+      <div class="all-hdr">
+        <input class="all-search" id="all-filter" type="text" placeholder="חפש חנות..." oninput="buildAllStores(this.value)" autocomplete="off" />
+      </div>
+      <div id="all-list"></div>
+    </div>
+
+    <p class="footer">&copy; Geberit Israel &bull; כל הזכויות שמורות</p>
+  </div>
+
+  <!-- POPUP -->
+  <div class="overlay" id="ov" role="dialog" aria-modal="true">
+    <div class="popup">
+      <div class="phdr">
+        <div><div class="pname" id="pn"></div><div class="paddr" id="pa"></div></div>
+        <button class="pcls" onclick="closeP()" aria-label="סגור">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="1" y1="1" x2="13" y2="13"/><line x1="13" y1="1" x2="1" y2="13"/></svg>
+        </button>
+      </div>
+      <div class="pdiv"></div>
+      <p class="plbl">בחר יישום ניווט</p>
+      <div class="nbtns">
+        <a id="wb" href="#" target="_blank" rel="noopener" class="nb nw" onclick="closeP()">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M20.54 6.63c-.46-2.22-2.03-4.08-4.13-5.04C14.5.69 12.25.5 10.1 1.06 7.03 1.88 4.63 4.27 3.8 7.34c-.58 2.12-.3 4.38.77 6.28l.1.18-.55 3.03c-.08.44.36.8.77.62l3.1-1.28.16.09c.97.55 2.03.9 3.12 1.04l.2.02.16.43c.37 1.02 1.37 1.71 2.44 1.69a2.6 2.6 0 0 0 2.46-1.79l.1-.32.35-.07c2.45-.55 4.43-2.4 5.12-4.84.51-1.8.33-3.73-.56-5.39zm-6.5 10.56c-.55 0-1.03-.37-1.2-.9l-.05-.18-.25.02c-1.3.08-2.57-.2-3.72-.82l-.22-.12-2.91 1.2.52-2.83-.13-.22a7.05 7.05 0 0 1-.73-5.37 7.1 7.1 0 0 1 5.26-5.03c1.78-.47 3.66-.3 5.32.47 1.65.77 2.95 2.18 3.56 3.91v.01c.7 2.07.26 4.37-1.14 6.03a6.23 6.23 0 0 1-4.32 2.04v-.22zm-4.27-6.72a1.1 1.1 0 1 0 0-2.2 1.1 1.1 0 0 0 0 2.2zm5.24 0a1.1 1.1 0 1 0 0-2.2 1.1 1.1 0 0 0 0 2.2zm-5.8 2.2c.34.7 1.08 1.17 1.91 1.17.83 0 1.57-.47 1.91-1.17H9.21z"/></svg>
+          Waze
+        </a>
+        <a id="gb" href="#" target="_blank" rel="noopener" class="nb ng" onclick="closeP()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          Google Maps
+        </a>
+      </div>
+    </div>
+  </div>
+
+<script>
+// ===================== DATA =====================
+const STORES = [
+  {
+    "name": "קרמיקה יארדן",
+    "address": "אור יהודה",
+    "city": "אור יהודה",
+    "lat": 32.0270045,
+    "lng": 34.8629898
+  },
+  {
+    "name": "אילת קרמיקה מנגב",
+    "address": "רחוב החרש 16, אילת",
+    "city": "אילת",
+    "lat": 29.5577,
+    "lng": 34.9519
+  },
+  {
+    "name": "מחסן אילת",
+    "address": "רחוב האומן 10, אילת",
+    "city": "אילת",
+    "lat": 29.5577,
+    "lng": 34.9519
+  },
+  {
+    "name": "אשדוד קרמיקה עוץ",
+    "address": "רחוב העבודה 59, אשדוד",
+    "city": "אשדוד",
+    "lat": 31.804,
+    "lng": 34.655
+  },
+  {
+    "name": "הארש אשדוד",
+    "address": "רחוב העבודה 29, אשדוד",
+    "city": "אשדוד",
+    "lat": 31.804,
+    "lng": 34.655
+  },
+  {
+    "name": "אשוש קרמיקה",
+    "address": "רחוב צהאל 31, אשקלון",
+    "city": "אשקלון",
+    "lat": 31.6688,
+    "lng": 34.5742
+  },
+  {
+    "name": "אשקלון קרמיקה עוץ",
+    "address": "רחוב הפלאדה 7, אשקלון",
+    "city": "אשקלון",
+    "lat": 31.6688,
+    "lng": 34.5742
+  },
+  {
+    "name": "מיי קרמיקה",
+    "address": "רחוב הפנינים 11, אשקלון",
+    "city": "אשקלון",
+    "lat": 31.6688,
+    "lng": 34.5742
+  },
+  {
+    "name": "צנרט על זה",
+    "address": "רחוב המרכבה 27, אשקלון",
+    "city": "אשקלון",
+    "lat": 31.6688,
+    "lng": 34.5742
+  },
+  {
+    "name": "אלוני אשקלון",
+    "address": "סדרות חיים ברלב, אשקלון",
+    "city": "אשקלון",
+    "lat": 31.632349,
+    "lng": 34.556483
+  },
+  {
+    "name": "משי פורזלנו",
+    "address": "רחוב הפנינים 11, אשקלון",
+    "city": "אשקלון",
+    "lat": 31.6688,
+    "lng": 34.5742
+  },
+  {
+    "name": "מרכז הקרמיקה מוואסי",
+    "address": "רחוב אלנור, באקה אל-גרבייה",
+    "city": "באקה אל-גרבייה",
+    "lat": 32.4204,
+    "lng": 35.0382
+  },
+  {
+    "name": "הייבוואן",
+    "address": "רחוב הפלס 5, באר שבע",
+    "city": "באר שבע",
+    "lat": 31.253,
+    "lng": 34.7915
+  },
+  {
+    "name": "בירה שבע קרמית של נגב",
+    "address": "רחוב הפועלים 21, באר שבע",
+    "city": "באר שבע",
+    "lat": 31.253,
+    "lng": 34.7915
+  },
+  {
+    "name": "מרכז חאני",
+    "address": "רחוב המנוף 29, באר שבע",
+    "city": "באר שבע",
+    "lat": 31.253,
+    "lng": 34.7915
+  },
+  {
+    "name": "זהבי ביר שבע",
+    "address": "רחוב הנגרים 9, באר שבע",
+    "city": "באר שבע",
+    "lat": 31.253,
+    "lng": 34.7915
+  },
+  {
+    "name": "טרבלסי באר שבע",
+    "address": "דרך חברון 4, באר שבע",
+    "city": "באר שבע",
+    "lat": 31.2384257,
+    "lng": 34.7951317
+  },
+  {
+    "name": "אלוני באר שבע",
+    "address": "דרך חברון 48, באר שבע",
+    "city": "באר שבע",
+    "lat": 31.2384257,
+    "lng": 34.7951317
+  },
+  {
+    "name": "עוז קרמיקה ביר שבע",
+    "address": "רוטשילד 13, באר שבע",
+    "city": "באר שבע",
+    "lat": 31.2443412,
+    "lng": 34.8038805
+  },
+  {
+    "name": "חרב משה",
+    "address": "בית יצחק 1, בית יצחק",
+    "city": "בית יצחק",
+    "lat": 32.3167,
+    "lng": 34.9167
+  },
+  {
+    "name": "בן חיים קרמיקה",
+    "address": "רחוב העמל 4, בית שאן",
+    "city": "בית שאן",
+    "lat": 32.5,
+    "lng": 35.5
+  },
+  {
+    "name": "בית קרמיקה",
+    "address": "רחוב דבורה הנביה 1, בית שמש",
+    "city": "בית שמש",
+    "lat": 31.7459,
+    "lng": 34.9888
+  },
+  {
+    "name": "בית האסקרימיקה",
+    "address": "רחוב האומן 18, בית שמש",
+    "city": "בית שמש",
+    "lat": 31.7459,
+    "lng": 34.9888
+  },
+  {
+    "name": "סטודיו קרמיקה בית שמש",
+    "address": "רחוב הא-טסיה, בית שמש",
+    "city": "בית שמש",
+    "lat": 31.7459,
+    "lng": 34.9888
+  },
+  {
+    "name": "אמבט הלומי",
+    "address": "רחוב הפרסה, בית שערים",
+    "city": "בית שערים",
+    "lat": 32.7,
+    "lng": 35.1333
+  },
+  {
+    "name": "צינור קרמיקה בני ברק",
+    "address": "רחוב לחי 17, בני ברק",
+    "city": "בני ברק",
+    "lat": 32.0831,
+    "lng": 34.8338
+  },
+  {
+    "name": "בני ברק קרמיקה של נגב",
+    "address": "רחוב לחי 28, בני ברק",
+    "city": "בני ברק",
+    "lat": 32.0831,
+    "lng": 34.8338
+  },
+  {
+    "name": "סטודיו קרמיקה בני ברק",
+    "address": "רחוב לחי 29, בני ברק",
+    "city": "בני ברק",
+    "lat": 32.0831,
+    "lng": 34.8338
+  },
+  {
+    "name": "איציק ורואי קרמיקה",
+    "address": "רחוב אברבאנל 76, בני ברק",
+    "city": "בני ברק",
+    "lat": 32.0831,
+    "lng": 34.8338
+  },
+  {
+    "name": "חרש בני ברק",
+    "address": "רחוב חלחי 25, בני ברק",
+    "city": "בני ברק",
+    "lat": 32.0831,
+    "lng": 34.8338
+  },
+  {
+    "name": "מודי קרמיקה בני ברק",
+    "address": "רחוב לחי, בני ברק",
+    "city": "בני ברק",
+    "lat": 32.0831,
+    "lng": 34.8338
+  },
+  {
+    "name": "זהבי בני ברק",
+    "address": "חליחי 24, בני ברק",
+    "city": "בני ברק",
+    "lat": 32.0831,
+    "lng": 34.8338
+  },
+  {
+    "name": "דור וזורי בני ברק",
+    "address": "רחוב המכבים 116, בני ברק",
+    "city": "בני ברק",
+    "lat": 32.0831,
+    "lng": 34.8338
+  },
+  {
+    "name": "אקווה דיזיין",
+    "address": "רחוב לחי, בני ברק",
+    "city": "בני ברק",
+    "lat": 32.0831,
+    "lng": 34.8338
+  },
+  {
+    "name": "ישיר לקבלן",
+    "address": "שאול המלך רחוב 8, בני ברק",
+    "city": "בני ברק",
+    "lat": 32.0831,
+    "lng": 34.8338
+  },
+  {
+    "name": "טופז קרמיקה",
+    "address": "רחוב מנחם יקואל 4, בת ים",
+    "city": "בת ים",
+    "lat": 32.0167,
+    "lng": 34.75
+  },
+  {
+    "name": "ניסים אליהו",
+    "address": "רחוב האורגים 1, בת ים",
+    "city": "בת ים",
+    "lat": 32.0167,
+    "lng": 34.75
+  },
+  {
+    "name": "פולינוי קרמיקה",
+    "address": "רחוב אדום 6, גדרה",
+    "city": "גדרה",
+    "lat": 31.812,
+    "lng": 34.7787
+  },
+  {
+    "name": "ס. דוד קרמיקה",
+    "address": "רחוב הפועלים 22, דימונה",
+    "city": "דימונה",
+    "lat": 31.0697,
+    "lng": 35.0336
+  },
+  {
+    "name": "הורדה",
+    "address": "רחוב גלגלי הפלאדה 7, הרצליה",
+    "city": "הרצליה",
+    "lat": 32.1663,
+    "lng": 34.8434
+  },
+  {
+    "name": "רוניס אריכים",
+    "address": "רחוב היי-יין 2, זכרון יעקב",
+    "city": "זכרון יעקב",
+    "lat": 32.574,
+    "lng": 34.9444
+  },
+  {
+    "name": "צן קרמיקה",
+    "address": "רחוב האומן, חדרה",
+    "city": "חדרה",
+    "lat": 32.4338,
+    "lng": 34.9198
+  },
+  {
+    "name": "רון קרמייק",
+    "address": "רחוב ירושלים 1, חדרה",
+    "city": "חדרה",
+    "lat": 32.4338,
+    "lng": 34.9198
+  },
+  {
+    "name": "נגב קרמיקה חדרה",
+    "address": "רחוב קומב 6, חדרה",
+    "city": "חדרה",
+    "lat": 32.4338,
+    "lng": 34.9198
+  },
+  {
+    "name": "חרש חולון",
+    "address": "רחוב המרכבה 10, חולון",
+    "city": "חולון",
+    "lat": 32.0109,
+    "lng": 34.7788
+  },
+  {
+    "name": "קרמיקה נגב חיפה",
+    "address": "רחוב מקלף 55, חיפה",
+    "city": "חיפה",
+    "lat": 32.794,
+    "lng": 34.9896
+  },
+  {
+    "name": "ד.ד. יושר",
+    "address": "דרך בר יהודה, חיפה",
+    "city": "חיפה",
+    "lat": 32.7878198,
+    "lng": 35.0286047
+  },
+  {
+    "name": "קרמיקה בזלט דנילוף",
+    "address": "רחוב המלחך 22, טבריה",
+    "city": "טבריה",
+    "lat": 32.7922,
+    "lng": 35.5312
+  },
+  {
+    "name": "גלריה הקרמיקה",
+    "address": "רחוב הא-טסיה 10, יקנעם עילית",
+    "city": "יקנעם עילית",
+    "lat": 32.6558,
+    "lng": 35.1028
+  },
+  {
+    "name": "טובול קרמיקה ירושלים",
+    "address": "רחוב הטעאסיה 5, ירושלים",
+    "city": "ירושלים",
+    "lat": 31.7683,
+    "lng": 35.2137
+  },
+  {
+    "name": "אליצור טופולסקי",
+    "address": "רחוב הפרסה 2, ירושלים",
+    "city": "ירושלים",
+    "lat": 31.7683,
+    "lng": 35.2137
+  },
+  {
+    "name": "ברמי ירושלים",
+    "address": "רחוב האומן 25, ירושלים",
+    "city": "ירושלים",
+    "lat": 31.7683,
+    "lng": 35.2137
+  },
+  {
+    "name": "מ. שאולוף ובניו טלפיות",
+    "address": "רחוב הסדנה 9, ירושלים",
+    "city": "ירושלים",
+    "lat": 31.7683,
+    "lng": 35.2137
+  },
+  {
+    "name": "קרמיקה נגב ירושלים",
+    "address": "רחוב הסדנה 11, ירושלים",
+    "city": "ירושלים",
+    "lat": 31.7683,
+    "lng": 35.2137
+  },
+  {
+    "name": "פנטהאוז קרמיקה",
+    "address": "רחוב פנים מירים 3, ירושלים",
+    "city": "ירושלים",
+    "lat": 31.7683,
+    "lng": 35.2137
+  },
+  {
+    "name": "ה.ב. הקול לביניאן",
+    "address": "רחוב קנפיי נשרים 18, ירושלים",
+    "city": "ירושלים",
+    "lat": 31.7683,
+    "lng": 35.2137
+  },
+  {
+    "name": "עוז קרמיקה ירושלים",
+    "address": "רחוב האומן 40, ירושלים",
+    "city": "ירושלים",
+    "lat": 31.7683,
+    "lng": 35.2137
+  },
+  {
+    "name": "מ. שאולוף ובניו גבעת שאול",
+    "address": "שלמה אלקבתס רחוב 30, ירושלים",
+    "city": "ירושלים",
+    "lat": 31.7683,
+    "lng": 35.2137
+  },
+  {
+    "name": "שריף חזימה",
+    "address": "כביש ראשי יאסיף, כפר יאסיף",
+    "city": "כפר יאסיף",
+    "lat": 32.9509,
+    "lng": 35.1528
+  },
+  {
+    "name": "מרכז לב השרון",
+    "address": "דרך המוביל 1, כפר סבא",
+    "city": "כפר סבא",
+    "lat": 32.1784,
+    "lng": 34.9079
+  },
+  {
+    "name": "א.א. קרמיקה כפר סאווה",
+    "address": "רחוב יד חרוצים 2, כפר סבא",
+    "city": "כפר סבא",
+    "lat": 32.1784,
+    "lng": 34.9079
+  },
+  {
+    "name": "לפאטיו קרמיקה",
+    "address": "אזור תעשיה כפר עציון",
+    "city": "כפר עציון",
+    "lat": 31.6583,
+    "lng": 35.1167
+  },
+  {
+    "name": "רמה קרמיקה",
+    "address": "רחוב היוצרים 10, כרמיאל",
+    "city": "כרמיאל",
+    "lat": 32.9183,
+    "lng": 35.2963
+  },
+  {
+    "name": "טובול קרמיקס מודין",
+    "address": "הבנאי 7, מודיעין מכבים רעות",
+    "city": "מודיעין מכבים רעות",
+    "lat": 31.8833157,
+    "lng": 34.9607534
+  },
+  {
+    "name": "מודיין קרמיקה עוץ",
+    "address": "שדרות המלחוט 1, מודיעין-מכבים-רעות",
+    "city": "מודיעין-מכבים-רעות",
+    "lat": 31.8933,
+    "lng": 35.01
+  },
+  {
+    "name": "גלעד קרמיקה",
+    "address": "מודיעין-מכבים-רעות",
+    "city": "מודיעין-מכבים-רעות",
+    "lat": 31.9085744,
+    "lng": 35.0069297
+  },
+  {
+    "name": "סטודיו קרמיקה שואם",
+    "address": "רחוב שייקד 11, מודיעין-מכבים-רעות",
+    "city": "מודיעין-מכבים-רעות",
+    "lat": 31.8933,
+    "lng": 35.01
+  },
+  {
+    "name": "ברמי מישור אדומים",
+    "address": "דרך ימית, מעלה אדומים",
+    "city": "מעלה אדומים",
+    "lat": 31.7733,
+    "lng": 35.293
+  },
+  {
+    "name": "סייג קרמיקה",
+    "address": "רחוב ה-גאיש 3, נוף הגליל",
+    "city": "נוף הגליל",
+    "lat": 32.7096,
+    "lng": 35.3188
+  },
+  {
+    "name": "מודי חיפה",
+    "address": "רחוב הבונים 7, נשר",
+    "city": "נשר",
+    "lat": 32.7748,
+    "lng": 35.0462
+  },
+  {
+    "name": "סטודיו קרמיקה נטיבוט",
+    "address": "נתיבות",
+    "city": "נתיבות",
+    "lat": 31.4213546,
+    "lng": 34.5884252
+  },
+  {
+    "name": "עוז קרמיקה",
+    "address": "המלאכה 39, נתניה",
+    "city": "נתניה",
+    "lat": 32.2831267,
+    "lng": 34.8602641
+  },
+  {
+    "name": "אס אן אי פורצלן",
+    "address": "שדרות טום לנטוס 60, נתניה",
+    "city": "נתניה",
+    "lat": 32.3329,
+    "lng": 34.8599
+  },
+  {
+    "name": "הקרמיקה של הדר",
+    "address": "רחוב יד חרוצים 16, נתניה",
+    "city": "נתניה",
+    "lat": 32.3329,
+    "lng": 34.8599
+  },
+  {
+    "name": "נתניה מודס",
+    "address": "רחוב המלכה 22, נתניה",
+    "city": "נתניה",
+    "lat": 32.3329,
+    "lng": 34.8599
+  },
+  {
+    "name": "קרמיקה חביב",
+    "address": "דרך הרקבת 8, נתניה",
+    "city": "נתניה",
+    "lat": 32.3329,
+    "lng": 34.8599
+  },
+  {
+    "name": "הרש נתניה",
+    "address": "שדרות גיבורי ישראל, נתניה",
+    "city": "נתניה",
+    "lat": 32.2749153,
+    "lng": 34.859273
+  },
+  {
+    "name": "מ. דקשי סכנין",
+    "address": "סכנין",
+    "city": "סכנין",
+    "lat": 32.8638052,
+    "lng": 35.3023184
+  },
+  {
+    "name": "מ. דוקי עכו",
+    "address": "רחוב משמר הים 1, עכו",
+    "city": "עכו",
+    "lat": 32.9284,
+    "lng": 35.082
+  },
+  {
+    "name": "חסון עפולה",
+    "address": "רחוב הקורם 1, עפולה",
+    "city": "עפולה",
+    "lat": 32.6069,
+    "lng": 35.29
+  },
+  {
+    "name": "חרש פתח תקווה",
+    "address": "רחוב גליס 15, פתח תקווה",
+    "city": "פתח תקווה",
+    "lat": 32.0913,
+    "lng": 34.8868
+  },
+  {
+    "name": "דפו קרמיקה",
+    "address": "רחוב בן ציון גליס 8, פתח תקווה",
+    "city": "פתח תקווה",
+    "lat": 32.0913,
+    "lng": 34.8868
+  },
+  {
+    "name": "פתח תקווה קרמיקה עוז",
+    "address": "רחוב בן ציון גליס 26, פתח תקווה",
+    "city": "פתח תקווה",
+    "lat": 32.0913,
+    "lng": 34.8868
+  },
+  {
+    "name": "קרמיקה נגב פתח תקווה",
+    "address": "רחוב חיים סוטין 4, פתח תקווה",
+    "city": "פתח תקווה",
+    "lat": 32.0913,
+    "lng": 34.8868
+  },
+  {
+    "name": "סטיילס קרמיקה",
+    "address": "רחוב אלכסנדר ינאי 26, פתח תקווה",
+    "city": "פתח תקווה",
+    "lat": 32.0913,
+    "lng": 34.8868
+  },
+  {
+    "name": "טופולסקי ריצוף",
+    "address": "דרך חיפה 50, קריית אתא",
+    "city": "קריית אתא",
+    "lat": 32.8097,
+    "lng": 35.1133
+  },
+  {
+    "name": "חזי בנק חיפה",
+    "address": "רחוב קרן היסוד 29, קריית אתא",
+    "city": "קריית אתא",
+    "lat": 32.8097,
+    "lng": 35.1133
+  },
+  {
+    "name": "אליאב חיזובים קריית גת",
+    "address": "שדרות ישראל פולק 5, קרית גת",
+    "city": "קרית גת",
+    "lat": 31.6055971,
+    "lng": 34.7849916
+  },
+  {
+    "name": "דקל קרמיקה",
+    "address": "רחוב המלך חסאן השני, קריית עקרון",
+    "city": "קריית עקרון",
+    "lat": 31.8667,
+    "lng": 34.8167
+  },
+  {
+    "name": "עוז קרמיקה עקרון",
+    "address": "רחוב המלך חסאן השני 1, קריית עקרון",
+    "city": "קריית עקרון",
+    "lat": 31.8667,
+    "lng": 34.8167
+  },
+  {
+    "name": "אקרון קרמיקה טובול",
+    "address": "רחוב המלך חסאן השני 6, קריית עקרון",
+    "city": "קריית עקרון",
+    "lat": 31.8667,
+    "lng": 34.8167
+  },
+  {
+    "name": "מ.ס. הכהנים קריית ארבע",
+    "address": "הרב צבי יהודה 11, קרית ארבע",
+    "city": "קרית ארבע",
+    "lat": 31.5279,
+    "lng": 35.1111
+  },
+  {
+    "name": "מטרופארק",
+    "address": "ראש העין",
+    "city": "ראש העין",
+    "lat": 32.0952929,
+    "lng": 34.9533225
+  },
+  {
+    "name": "גרניטה",
+    "address": "הדקלים 6, ראש העין",
+    "city": "ראש העין",
+    "lat": 32.1064532,
+    "lng": 34.9607698
+  },
+  {
+    "name": "אמבט בשבילך",
+    "address": "יצחק רחוב בן צבי 34, ראשון לציון",
+    "city": "ראשון לציון",
+    "lat": 31.9641,
+    "lng": 34.8041
+  },
+  {
+    "name": "קרמיקה עוז ראשון לציון",
+    "address": "אליעזר מזל סטריט 5, ראשון לציון",
+    "city": "ראשון לציון",
+    "lat": 31.9641,
+    "lng": 34.8041
+  },
+  {
+    "name": "פאביו סניטרי",
+    "address": "רחוב משה שרט 38, ראשון לציון",
+    "city": "ראשון לציון",
+    "lat": 31.9641,
+    "lng": 34.8041
+  },
+  {
+    "name": "מודי קרמיקה ראשון לציון",
+    "address": "רחוב יצחק בן צבי, ראשון לציון",
+    "city": "ראשון לציון",
+    "lat": 31.9641,
+    "lng": 34.8041
+  },
+  {
+    "name": "ל.ז. אהרונוב (קנר)",
+    "address": "פאוול פרנקל 4, ראשון לציון",
+    "city": "ראשון לציון",
+    "lat": 31.9899175,
+    "lng": 34.7595605
+  },
+  {
+    "name": "אנטבי קרמיקס",
+    "address": "רחוב דוד סהארוב 8, ראשון לציון",
+    "city": "ראשון לציון",
+    "lat": 31.9641,
+    "lng": 34.8041
+  },
+  {
+    "name": "דומוס בוטיק קרמיקה",
+    "address": "יצחק רחוב בן צבי 40, ראשון לציון",
+    "city": "ראשון לציון",
+    "lat": 31.9641,
+    "lng": 34.8041
+  },
+  {
+    "name": "אזיקרי מונדיאל קרמיקה",
+    "address": "יצחק רחוב בן צבי 43, ראשון לציון",
+    "city": "ראשון לציון",
+    "lat": 31.9641,
+    "lng": 34.8041
+  },
+  {
+    "name": "גוטשטיין קרמיקה",
+    "address": "יצחק רחוב בן צבי 37, ראשון לציון",
+    "city": "ראשון לציון",
+    "lat": 31.9641,
+    "lng": 34.8041
+  },
+  {
+    "name": "קרמיקה נגב ראשון לציון",
+    "address": "יצחק רחוב בן צבי 30, ראשון לציון",
+    "city": "ראשון לציון",
+    "lat": 31.9641,
+    "lng": 34.8041
+  },
+  {
+    "name": "זהבי ראשון לציון",
+    "address": "פלוטיצקי 18, ראשון לציון",
+    "city": "ראשון לציון",
+    "lat": 31.9815641,
+    "lng": 34.811785
+  },
+  {
+    "name": "פריד מאיר רמלה",
+    "address": "היצירה 6, רמלה",
+    "city": "רמלה",
+    "lat": 31.9328219,
+    "lng": 34.8829483
+  },
+  {
+    "name": "א.א קרמיקה",
+    "address": "דרך ששת העם 16, רמת גן",
+    "city": "רמת גן",
+    "lat": 32.0706,
+    "lng": 34.8238
+  },
+  {
+    "name": "בני ברק קרמיקה של עוז",
+    "address": "רחוב מיבצה קדש 54, רמת גן",
+    "city": "רמת גן",
+    "lat": 32.0706,
+    "lng": 34.8238
+  },
+  {
+    "name": "קורצקי",
+    "address": "רחוב חרושט 5, רמת השרון",
+    "city": "רמת השרון",
+    "lat": 32.1457,
+    "lng": 34.8395
+  },
+  {
+    "name": "בוטיק קרמיקה",
+    "address": "רחוב סוקולוב 86, רמת השרון",
+    "city": "רמת השרון",
+    "lat": 32.1457,
+    "lng": 34.8395
+  },
+  {
+    "name": "סטודיו קרמיקה רעננה",
+    "address": "רחוב החרושת 12, רעננה",
+    "city": "רעננה",
+    "lat": 32.1841,
+    "lng": 34.8709
+  },
+  {
+    "name": "טומי דיזיין",
+    "address": "רחוב החרושת 16, רעננה",
+    "city": "רעננה",
+    "lat": 32.1841,
+    "lng": 34.8709
+  },
+  {
+    "name": "אוגן קרמיקה",
+    "address": "רחוב רננים 7, רעננה",
+    "city": "רעננה",
+    "lat": 32.1841,
+    "lng": 34.8709
+  },
+  {
+    "name": "האחים לוי",
+    "address": "רחוב שייקד 23, שוהם",
+    "city": "שוהם",
+    "lat": 31.9899,
+    "lng": 34.9495
+  },
+  {
+    "name": "קרמיקה חקואה",
+    "address": "כביש גלויות 25, תל אביב-יפו",
+    "city": "תל אביב-יפו",
+    "lat": 32.0853,
+    "lng": 34.7818
+  },
+  {
+    "name": "דור וזורי תל אביב",
+    "address": "תל אביב-יפו",
+    "city": "תל אביב-יפו",
+    "lat": 32.0852997,
+    "lng": 34.7818064
+  },
+  {
+    "name": "שרוני קרמיקה",
+    "address": "תל אביב-יפו",
+    "city": "תל אביב-יפו",
+    "lat": 32.0852997,
+    "lng": 34.7818064
+  },
+  {
+    "name": "מרכז קורש",
+    "address": "רחוב יפת 182, תל אביב-יפו",
+    "city": "תל אביב-יפו",
+    "lat": 32.0853,
+    "lng": 34.7818
+  },
+  {
+    "name": "קרמיקה של הזי מיכאל",
+    "address": "רחוב האתיה 24, תל אביב-יפו",
+    "city": "תל אביב-יפו",
+    "lat": 32.0853,
+    "lng": 34.7818
+  }
+];
+
+const CC={"אור יהודה":[32.0332,34.8557],"אילת":[29.5577,34.9519],"אשדוד":[31.8040,34.6550],"אשקלון":[31.6688,34.5742],"באקה אל-גרבייה":[32.4204,35.0382],"באר שבע":[31.2530,34.7915],"בית יצחק":[32.3167,34.9167],"בית שאן":[32.5000,35.5000],"בית שמש":[31.7459,34.9888],"בית שערים":[32.7000,35.1333],"בני ברק":[32.0831,34.8338],"בת ים":[32.0167,34.7500],"גדרה":[31.8120,34.7787],"דימונה":[31.0697,35.0336],"הרצליה":[32.1663,34.8434],"זכרון יעקב":[32.5740,34.9444],"חדרה":[32.4338,34.9198],"חולון":[32.0109,34.7788],"חיפה":[32.7940,34.9896],"טבריה":[32.7922,35.5312],"יקנעם עילית":[32.6558,35.1028],"ירושלים":[31.7683,35.2137],"כפר יאסיף":[32.9509,35.1528],"כפר סבא":[32.1784,34.9079],"כפר עציון":[31.6583,35.1167],"כרמיאל":[32.9183,35.2963],"מודיעין מכבים רעות":[31.8933,35.0100],"מודיעין-מכבים-רעות":[31.8933,35.0100],"מעלה אדומים":[31.7733,35.2930],"נוף הגליל":[32.7096,35.3188],"נשר":[32.7748,35.0462],"נתיבות":[31.4174,34.5890],"נתניה":[32.3329,34.8599],"סכנין":[32.8628,35.3039],"עכו":[32.9284,35.0820],"עפולה":[32.6069,35.2900],"פתח תקווה":[32.0913,34.8868],"קריית אתא":[32.8097,35.1133],"קרית גת":[31.6100,34.7639],"קריית עקרון":[31.8667,34.8167],"קרית ארבע":[31.5279,35.1111],"ראש העין":[32.0953,34.9567],"ראשון לציון":[31.9641,34.8041],"רמלה":[31.9298,34.8735],"רמת גן":[32.0706,34.8238],"רמת השרון":[32.1457,34.8395],"רעננה":[32.1841,34.8709],"שוהם":[31.9899,34.9495],"תל אביב-יפו":[32.0853,34.7818]};
+
+// ===================== HELPERS =====================
+function hav(a,b,c,d){
+  const R=6371,dL=(c-a)*Math.PI/180,dG=(d-b)*Math.PI/180;
+  const x=Math.sin(dL/2)**2+Math.cos(a*Math.PI/180)*Math.cos(c*Math.PI/180)*Math.sin(dG/2)**2;
+  return R*2*Math.atan2(Math.sqrt(x),Math.sqrt(1-x));
+}
+function fmtDist(km){
+  if(km<1) return Math.round(km*1000)+" מ'";
+  return km.toFixed(1)+' ק"מ';
+}
+function storeIcon(){
+  return '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>';
+}
+function makeCard(s){
+  const el=document.createElement('div');
+  el.className='sc';
+  el.setAttribute('role','button');el.setAttribute('tabindex','0');
+  const distHtml=s.dist!=null
+    ? '<div class="sdist" id="dist-'+s._id+'">'+fmtDist(s.dist)+'</div>'
+    : '';
+  el.innerHTML='<div class="store-icon">'+storeIcon()+'</div><div class="sinfo"><div class="sname">'+s.name+'</div><div class="saddr">'+s.address+'</div></div>'+distHtml+'<div class="sarr"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></div>';
+  el.addEventListener('click',()=>openP(s));
+  el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' ')openP(s);});
+  return el;
+}
+
+// ===================== GEOCODE =====================
+const geoCache={};
+async function geocodeAddr(addr,isStore=false){
+  const key=addr.trim().toLowerCase();
+  if(geoCache[key])return geoCache[key];
+  const suffix=isStore?', ישראל':', ישראל';
+  const q=encodeURIComponent(addr+suffix);
+  const r=await fetch('https://nominatim.openstreetmap.org/search?q='+q+'&format=json&limit=1&countrycodes=il',{headers:{'Accept-Language':'he','User-Agent':'GeberitStoreFinder/2.0'}});
+  const d=await r.json();
+  if(!d||!d.length)return null;
+  const res={lat:parseFloat(d[0].lat),lng:parseFloat(d[0].lon)};
+  geoCache[key]=res;
+  return res;
+}
+
+function delay(ms){return new Promise(r=>setTimeout(r,ms));}
+
+// ===================== SEARCH =====================
+let _sid=0;
+async function find(){
+  const inp=document.getElementById('addr');
+  const a=inp.value.trim();
+  const err=document.getElementById('err');
+  const res=document.getElementById('search-results');
+  const prog=document.getElementById('geo-progress');
+  err.style.display='none'; res.style.display='none'; prog.style.display='none';
+  if(!a){err.textContent='אנא הזן כתובת';err.style.display='block';inp.focus();return;}
+  const sp=document.getElementById('sp'),si=document.getElementById('sico'),st=document.getElementById('stxt'),btn=document.getElementById('sbtn');
+  sp.style.display='block';si.style.display='none';st.textContent='מחפש...';btn.disabled=true;
+  prog.style.display='block';
+  const sid=++_sid;
+  
+  try{
+    // Simulate slight loading for better UX, or wait for geocode if user address
+    const userCoords=await geocodeAddr(a);
+    if(!userCoords)throw new Error('not found');
+
+    if(sid!==_sid) return;
+
+    // Assign IDs and precise distances immediately!
+    const sorted=STORES.map((s,i)=>{
+      let d=999;
+      if(s.lat && s.lng) {
+        d=hav(userCoords.lat,userCoords.lng,s.lat,s.lng);
+      } else {
+        const c=CC[s.city];
+        if(c) d=hav(userCoords.lat,userCoords.lng,c[0],c[1]);
+      }
+      return{...s,_id:'s'+i,dist:d};
+    }).sort((a,b)=>a.dist-b.dist);
+
+    // Pick same city stores + 5 nearest others
+    const nearestCity=sorted[0].city;
+    const sameCityStores=sorted.filter(s=>s.city===nearestCity);
+    const otherStores=sorted.filter(s=>s.city!==nearestCity);
+    const toShow=[...sameCityStores,...otherStores.slice(0,5)];
+
+    res.innerHTML='';
+    toShow.forEach(s=>{
+      res.appendChild(makeCard(s));
+    });
+    
+    prog.style.display='none';
+    res.style.display='block';
+    res.scrollIntoView({behavior:'smooth',block:'nearest'});
+    
+  }catch(e){
+    prog.style.display='none';
+    err.textContent='לא הצלחנו למצוא את הכתובת. נסה להיות מדויק, לדוגמא: "רחוב הרצל 50, תל אביב"';
+    err.style.display='block';
+  }
+  finally{
+    sp.style.display='none';si.style.display='block';st.textContent='חפש';btn.disabled=false;
+  }
+}
+
+// ===================== CITY TAB =====================
+const cityMap={};
+STORES.forEach((s,i)=>{s._id='s'+i;if(!cityMap[s.city])cityMap[s.city]=[];cityMap[s.city].push(s);});
+const cities=Object.keys(cityMap).sort();
+
+function buildCitiesGrid(filter){
+  const grid=document.getElementById('cities-grid');
+  grid.innerHTML='';
+  const f=filter||'';
+  const filtered=f?cities.filter(c=>c.includes(f)):cities;
+  if(!filtered.length){grid.innerHTML='<div class="empty">לא נמצאו עירות</div>';return;}
+  filtered.forEach(city=>{
+    const btn=document.createElement('button');
+    btn.className='city-btn';
+    btn.innerHTML=city+'<span class="city-count">'+cityMap[city].length+'</span>';
+    btn.addEventListener('click',()=>selectCity(city,btn));
+    grid.appendChild(btn);
+  });
+}
+function selectCity(city,btn){
+  document.querySelectorAll('.city-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const sec=document.getElementById('city-stores');
+  const list=document.getElementById('city-list');
+  list.innerHTML='';
+  cityMap[city].forEach(s=>list.appendChild(makeCard(s)));
+  document.getElementById('city-stores-title').textContent=city;
+  document.getElementById('city-stores-count').textContent=cityMap[city].length+' סניפים';
+  sec.classList.add('active');
+  sec.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+// ===================== ALL STORES =====================
+function buildAllStores(filter){
+  const container=document.getElementById('all-list');
+  container.innerHTML='';
+  const f=filter||'';
+  const grouped={};let total=0;
+  STORES.forEach(s=>{
+    if(f&&!s.name.includes(f)&&!s.address.includes(f)&&!s.city.includes(f))return;
+    if(!grouped[s.city])grouped[s.city]=[];
+    grouped[s.city].push(s);total++;
+  });
+  Object.keys(grouped).sort().forEach(city=>{
+    const h=document.createElement('div');h.className='group-title';h.textContent=city+' ('+grouped[city].length+')';
+    container.appendChild(h);
+    grouped[city].forEach(s=>container.appendChild(makeCard(s)));
+  });
+  if(!total)container.innerHTML='<div class="empty">לא נמצאו תוצאות</div>';
+}
+
+// ===================== TABS =====================
+function switchTab(t){
+  document.querySelectorAll('.tab').forEach(b=>{b.classList.remove('active');b.setAttribute('aria-selected','false');});
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('tab-'+t).classList.add('active');
+  document.getElementById('tab-'+t).setAttribute('aria-selected','true');
+  document.getElementById('panel-'+t).classList.add('active');
+}
+
+// ===================== POPUP =====================
+function openP(s){
+  document.getElementById('pn').textContent=s.name;
+  document.getElementById('pa').textContent=s.address;
+  const q=encodeURIComponent(s.address+', ישראל');
+  document.getElementById('wb').href='https://waze.com/ul?q='+q+'&navigate=yes';
+  document.getElementById('gb').href='https://www.google.com/maps/dir/?api=1&destination='+q;
+  document.getElementById('ov').classList.add('on');
+  document.body.style.overflow='hidden';
+}
+function closeP(){document.getElementById('ov').classList.remove('on');document.body.style.overflow='';}
+document.getElementById('ov').addEventListener('click',function(e){if(e.target===this)closeP();});
+document.getElementById('addr').addEventListener('keydown',e=>{if(e.key==='Enter')find();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeP();});
+
+// ===================== INIT =====================
+buildCitiesGrid('');
+buildAllStores('');
+</script>
+</body>
+</html>

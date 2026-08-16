@@ -386,10 +386,7 @@ function makeCard(s){
   const el=document.createElement('div');
   el.className='sc';
   el.setAttribute('role','button');el.setAttribute('tabindex','0');
-  const distHtml=s.dist!=null
-    ? '<div class="sdist" id="dist-'+s._id+'">'+fmtDist(s.dist)+'</div>'
-    : '';
-  el.innerHTML='<div class="store-icon">'+storeIcon()+'</div><div class="sinfo"><div class="sname">'+s.name+'</div><div class="saddr">'+s.address+'</div></div>'+distHtml+'<div class="sarr"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></div>';
+  el.innerHTML='<div class="store-icon">'+storeIcon()+'</div><div class="sinfo"><div class="sname">'+s.name+'</div><div class="saddr">'+s.address+'</div></div><div class="sarr"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></div>';
   el.addEventListener('click',()=>openP(s));
   el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' ')openP(s);});
   return el;

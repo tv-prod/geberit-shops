@@ -135,16 +135,16 @@
       </div>
       <p class="eyebrow">מציאת נקודות מכירה</p>
       <h1>מצא את החנות הקרובה אליך</h1>
-      <p class="sub">חפש לפי כתובת מדוייקת, עיר או צפה בכל החנויות</p>
+      <p class="sub">חפש לפי עיר או צפה בכל החנויות</p>
       <div class="divider"></div>
     </header>
 
     <div class="tabs" role="tablist">
-      <button class="tab active" id="tab-search" role="tab" onclick="switchTab('search')" aria-selected="true">
+      <button class="tab" id="tab-search" role="tab" onclick="switchTab('search')" aria-selected="false" style="display:none !important;">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
         חפש לפי כתובת
       </button>
-      <button class="tab" id="tab-city" role="tab" onclick="switchTab('city')" aria-selected="false">
+      <button class="tab active" id="tab-city" role="tab" onclick="switchTab('city')" aria-selected="true">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
         חפש לפי עיר
       </button>
@@ -155,7 +155,7 @@
     </div>
 
     <!-- SEARCH PANEL -->
-    <div class="panel active" id="panel-search" role="tabpanel">
+    <div class="panel" id="panel-search" role="tabpanel" style="display:none !important;">
       <section class="card">
         <label class="lbl" for="addr">כתובתך המלאה</label>
         <div class="row">
@@ -174,7 +174,7 @@
     </div>
 
     <!-- CITY PANEL -->
-    <div class="panel" id="panel-city" role="tabpanel">
+    <div class="panel active" id="panel-city" role="tabpanel">
       <div class="card">
         <label class="lbl">בחר עיר</label>
         <input class="city-filter" id="city-filter" type="text" placeholder="סנן עיר..." oninput="buildCitiesGrid(this.value)" autocomplete="off" />

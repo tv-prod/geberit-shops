@@ -470,6 +470,11 @@ async function find(){
 
 // ===================== CITY TAB =====================
 const cityMap={};
+STORES.sort((a,b)=>{
+  const pA = a.name.includes("עוז")?1:a.name.startsWith("סטודיו")?2:a.name.startsWith("נגב")?3:4;
+  const pB = b.name.includes("עוז")?1:b.name.startsWith("סטודיו")?2:b.name.startsWith("נגב")?3:4;
+  return pA - pB;
+});
 STORES.forEach((s,i)=>{s._id='s'+i;if(!cityMap[s.city])cityMap[s.city]=[];cityMap[s.city].push(s);});
 const cities=Object.keys(cityMap).sort();
 
